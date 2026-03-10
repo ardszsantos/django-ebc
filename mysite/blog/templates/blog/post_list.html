@@ -1,0 +1,56 @@
+{% extends "blog/base.html" %}
+
+{% block title %}Home - Blog{% endblock %}
+
+{% block extra_css %}
+<style>
+    .post-card {
+        background: #fff;
+        padding: 1.5rem;
+        margin-bottom: 1.5rem;
+        border-radius: 4px;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    }
+
+    .post-card h2 a {
+        color: #333;
+        text-decoration: none;
+    }
+
+    .post-card h2 a:hover {
+        color: #555;
+    }
+
+    .post-meta {
+        color: #777;
+        font-size: 0.9rem;
+        margin: 0.5rem 0;
+    }
+
+    .post-excerpt {
+        margin-top: 0.5rem;
+    }
+
+    .empty-message {
+        text-align: center;
+        padding: 2rem;
+        color: #777;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<h2>Posts</h2>
+
+{% for post in posts %}
+<div class="post-card">
+    <h2><a href="{% url 'post_detail' post.slug %}">{{ post.title }}</a></h2>
+    <p class="post-meta">
+        Por {{ post.author }} | {{ post.created_on|date:"d/m/Y" }}
+    </p>
+    <p class="post-excerpt">{{ post.content|truncatewords:30 }}</p>
+</div>
+{% empty %}
+<p class="empty-message">Nenhum post publicado ainda.</p>
+{% endfor %}
+{% endblock %}

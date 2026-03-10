@@ -1,0 +1,52 @@
+{% extends "blog/base.html" %}
+
+{% block title %}{{ post.title }} - Blog{% endblock %}
+
+{% block extra_css %}
+<style>
+    .post-detail {
+        background: #fff;
+        padding: 2rem;
+        border-radius: 4px;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    }
+
+    .post-detail h1 {
+        margin-bottom: 0.5rem;
+    }
+
+    .post-meta {
+        color: #777;
+        font-size: 0.9rem;
+        margin-bottom: 1.5rem;
+        padding-bottom: 1rem;
+        border-bottom: 1px solid #eee;
+    }
+
+    .post-content {
+        line-height: 1.8;
+    }
+
+    .back-link {
+        display: inline-block;
+        margin-top: 1.5rem;
+        color: #333;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="post-detail">
+    <h1>{{ post.title }}</h1>
+    <p class="post-meta">
+        Por {{ post.author }} | {{ post.created_on|date:"d/m/Y H:i" }}
+        {% if post.updated_on != post.created_on %}
+            | Atualizado em {{ post.updated_on|date:"d/m/Y H:i" }}
+        {% endif %}
+    </p>
+    <div class="post-content">
+        {{ post.content|linebreaks }}
+    </div>
+    <a href="{% url 'home' %}" class="back-link">&#8592; Voltar para posts</a>
+</div>
+{% endblock %}
